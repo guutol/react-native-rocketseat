@@ -5,9 +5,10 @@ export const styles = StyleSheet.create({
     flex: 1, 
     justifyContent: 'center', 
     alignItems: 'center',
+    backgroundColor: 'white'
   },
-  text: {
-    fontSize: 32,
-    fontWeight: "bold",
-  },
+  logo: {
+    height: 34,
+    width: 134
+  }
 });
