@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { View, Image, TouchableOpacity, Text, FlatList } from "react-native";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  Text,
+  FlatList,
+  Alert,
+} from "react-native";
 
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
@@ -14,7 +21,19 @@ const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE];
 export function Home() {
   const [description, setDescription] = useState("");
   const [filter, setFilter] = useState(FilterStatus.PENDING);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<any>([]);
+
+  function handleAdd() {
+    if (!description.trim()) {
+      return Alert.alert("Adicionar", "Informe a descrição para adicionar.");
+    }
+
+    const newItem = {
+      id: Math.random().toString(36).substring(2),
+      description,
+      status: FilterStatus.PENDING,
+    };
+  }
 
   return (
     <View style={[styles.container]}>
@@ -24,7 +43,7 @@ export function Home() {
           placeholder="O que você precisa comprar?"
           onChangeText={setDescription}
         />
-        <Button title="Entrar" />
+        <Button title="Adicionar" onPress={handleAdd} />
       </View>
 
       <View style={[styles.content]}>
