@@ -10,19 +10,11 @@ import { FilterStatus } from "@/types/FilterStatus";
 import { Item } from "@/components/Item";
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE];
-const ITEMS = [
-  { id: "1", status: FilterStatus.DONE, description: "1 pacote de café" },
-  {
-    id: "2",
-    status: FilterStatus.PENDING,
-    description: "3 pacotes de macarrão",
-  },
-  { id: "2", status: FilterStatus.PENDING, description: "3 cebolas" },
-];
 
 export function Home() {
   const [description, setDescription] = useState("");
   const [filter, setFilter] = useState(FilterStatus.PENDING);
+  const [items, setItems] = useState([]);
 
   return (
     <View style={[styles.container]}>
@@ -50,7 +42,7 @@ export function Home() {
           </TouchableOpacity>
         </View>
         <FlatList
-          data={ITEMS}
+          data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <Item
