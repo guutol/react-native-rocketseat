@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -34,6 +34,8 @@ export function Home() {
       status: FilterStatus.PENDING,
     };
   }
+
+  useEffect(() => {}, []);
 
   return (
     <View style={[styles.container]}>
