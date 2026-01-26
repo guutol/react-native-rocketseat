@@ -15,13 +15,14 @@ import { Filter } from "@/components/Filter";
 import { styles } from "./styles";
 import { FilterStatus } from "@/types/FilterStatus";
 import { Item } from "@/components/Item";
+import { itemsStorage, ItemStorage } from "@/storage/itemsStorage";
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE];
 
 export function Home() {
   const [description, setDescription] = useState("");
   const [filter, setFilter] = useState(FilterStatus.PENDING);
-  const [items, setItems] = useState<any>([]);
+  const [items, setItems] = useState<ItemStorage[]>([]);
 
   function handleAdd() {
     if (!description.trim()) {
@@ -33,6 +34,16 @@ export function Home() {
       description,
       status: FilterStatus.PENDING,
     };
+  }
+
+  async function getItems() {
+    try {
+      const response = await itemsStorage.get();
+      setItems(response);
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Erro", "Não foi possível filtrar os itens.");
+    }
   }
 
   useEffect(() => {}, []);
