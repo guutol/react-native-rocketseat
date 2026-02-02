@@ -63,6 +63,23 @@ export function Home() {
     }
   }
 
+  function handleClear() {
+    Alert.alert("Limpar", "Deseja remover todos?", [
+      { text: "Não", style: "cancel" },
+      { text: "Sim", onPress: () => onClear() },
+    ]);
+  }
+
+  async function onClear() {
+    try {
+      await itemsStorage.clear();
+      setItems([]);
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Limpar", "Não foi possível limpar");
+    }
+  }
+
   useEffect(() => {
     itemsByStatus();
   }, [filter]);
@@ -89,7 +106,7 @@ export function Home() {
               onPress={() => setFilter(status)}
             />
           ))}
-          <TouchableOpacity style={[styles.clearButton]}>
+          <TouchableOpacity style={[styles.clearButton]} onPress={handleClear}>
             <Text style={[styles.clearText]}>Limpar</Text>
           </TouchableOpacity>
         </View>

@@ -39,6 +39,15 @@ async function add(newItem: ItemStorage): Promise<ItemStorage[]> {
   return updatedItems;
 }
 
+async function clear(): Promise<void> {
+  try {
+    // await save([])
+    await AsyncStorage.removeItem(ITEMS_STORAGE_KEY);
+  } catch (error) {
+    throw new Error("ITEMS_CLEAR: " + error);
+  }
+}
+
 async function remove(id: string): Promise<void> {
   const items = await get();
   const updatedItems = items.filter((item) => item.id !== id);
@@ -49,4 +58,5 @@ export const itemsStorage = {
   getByStatus,
   add,
   remove,
+  clear,
 };
